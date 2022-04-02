@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit"
 
 interface catState {
     isLoading: boolean,
-    cats: string[]
+    cats: string[],
+    status: 'idle' | 'updated'
 }
 
 const initialState: catState = {
     cats: [],
-    isLoading: false
+    isLoading: false,
+    status: 'idle'
 }
 
 export const catSlice = createSlice({
@@ -16,6 +18,7 @@ export const catSlice = createSlice({
     reducers: {
         getCatsFetch: (state, action) => {
             state.isLoading = true
+            state.status = 'updated'
         },
         getCatsSuccess: (state, action) => {
             state.cats = [...state.cats, ...action.payload]

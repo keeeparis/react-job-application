@@ -8,6 +8,7 @@ function App() {
     const [page, setPage] = useState(1)
     const cats = useAppSelector(state => state.cats.cats)
     const isLoading = useAppSelector(state => state.cats.isLoading)
+    const status = useAppSelector(state => state.cats.status)
     const dispatch = useAppDispatch()
     
     const loadMoreHandler = () => {
@@ -16,10 +17,9 @@ function App() {
     }
 
     useEffect(() => {
-        dispatch(getCatsFetch(page))
-        setPage(page => ++page)
-    }, [dispatch])
-
+        loadMoreHandler()
+    }, [])
+    
     return (
         <div className="App">
             {cats.map((cat: any) =>
