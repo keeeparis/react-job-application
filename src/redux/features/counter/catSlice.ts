@@ -1,17 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+interface catState {
+    isLoading: boolean,
+    cats: string[]
+}
+
+const initialState: catState = {
+    cats: [],
+    isLoading: false
+}
+
 export const catSlice = createSlice({
     name: 'cats',
-    initialState: {
-        cats: [],
-        isLoading: false
-    },
+    initialState,
     reducers: {
-        getCatsFetch: (state) => {
+        getCatsFetch: (state, action) => {
             state.isLoading = true
         },
         getCatsSuccess: (state, action) => {
-            state.cats = action.payload
+            state.cats = [...state.cats, ...action.payload]
             state.isLoading = false
         },
         getCatsFailure: (state) => {
