@@ -1,49 +1,30 @@
 import { useEffect, useState } from 'react'
-import { useAppDispatch, useAppSelector } from './redux/hooks'
-import { getCatsFetch } from './redux/features/counter/catSlice'
+import { Layout, Table } from 'antd'
+import { columns, dataSource } from './mock'
+import MapWrapper from './components/MapWrapper'
 
-import './App.css'
+const { Header, Footer, Sider, Content } = Layout
 
 function App() {
-    const [page, setPage] = useState(1)
-    const cats = useAppSelector(state => state.cats.cats)
-    const isLoading = useAppSelector(state => state.cats.isLoading)
-    const status = useAppSelector(state => state.cats.status)
-    const dispatch = useAppDispatch()
-    
-    const loadMoreHandler = () => {
-        dispatch(getCatsFetch(page))
-        setPage(page => ++page)
-    }
-    
-    useEffect(() => {
-        loadMoreHandler()
-    }, [])
-    
     return (
-        <div className="App">
-            {cats.map((cat: any) =>
-                <div key={cat.id} className='row'>
-                    <img 
-                        srcSet={cat?.image?.url}  
-                        src={'https://muztext.com/i/32847534632343925347.jpg'}
-                        alt="cat image" 
-                        width={200} 
-                        height={200}
+        <Layout>
+            <Layout>
+                <Header>Header</Header>
+                <Content>
+                    <Table 
+                        dataSource={dataSource} 
+                        columns={columns} 
+                        pagination={false} 
                     />
-                    <div>
-                        <h2>Breed: {cat.name}</h2>
-                        <h5>Temperament: {cat.temperament}</h5>
-                        <p>Description: {cat.description}</p>
-                    </div>
-                </div>
-            )}
-            { isLoading ? (
-                <div>Loading...</div>
-            ) : (page < 7) ? (
-                <button onClick={loadMoreHandler}>Load More</button>
-            ) : null}
-        </div>
+                </Content>
+                <Footer>
+                    Footer
+                </Footer>
+            </Layout>
+            <Sider width={500}>
+                <MapWrapper />
+            </Sider>
+        </Layout>
     )
 }
 
