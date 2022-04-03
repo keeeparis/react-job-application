@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleWare from 'redux-saga'
+
 import counterReducer from '../features/counter/catSlice'
 import catSaga from '../saga/catSaga'
 
