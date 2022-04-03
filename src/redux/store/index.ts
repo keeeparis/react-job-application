@@ -1,18 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleWare from 'redux-saga'
 
-import counterReducer from '../features/counter/catSlice'
-import catSaga from '../saga/catSaga'
+import routeReducer from '../features/route/routeSlice'
+import routeSaga from '../saga/routeSaga'
 
 const saga = createSagaMiddleWare()
 
 export const store = configureStore({
     reducer: {
-        cats: counterReducer
+        routes: routeReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(saga)
 })
-saga.run(catSaga)
+saga.run(routeSaga)
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
