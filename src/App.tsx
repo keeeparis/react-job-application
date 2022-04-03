@@ -15,7 +15,7 @@ function App() {
         dispatch(getCatsFetch(page))
         setPage(page => ++page)
     }
-
+    
     useEffect(() => {
         loadMoreHandler()
     }, [])
