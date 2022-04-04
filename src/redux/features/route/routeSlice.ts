@@ -1,20 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { DataType } from "../../../App"
 
-interface routeState {
-    routes: DataType[],
-    currentRoute: DataType,
-    isLoading: boolean,
-    status: 'idle' | 'updated'
-}
+import { routeState } from "./types"
 
 const initialState: routeState = {
     routes: [],
     currentRoute: {
         id: 999,
         key: '999',
-        from: '',
-        to: '',
+        from: 'Point A',
+        to: 'Point C',
     },
     isLoading: false,
     status: 'idle'
