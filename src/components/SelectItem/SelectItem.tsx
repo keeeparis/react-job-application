@@ -4,6 +4,7 @@ import { setCurrentRoute, updateRoute } from '../../redux/features/route/routeSl
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { SelectItemProps } from './types'
 import { places } from '../../mock'
+import React from 'react'
 
 const { Option } = Select
 
@@ -40,4 +41,4 @@ const SelectItem = ({ defaultValue, record, id } : SelectItemProps) => {
     )
 }
 
-export default SelectItem
+export default React.memo(SelectItem)
