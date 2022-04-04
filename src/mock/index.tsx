@@ -1,12 +1,15 @@
-import { DataType } from "../App"
-import SelectItem from "../components/SelectItem"
+import { ColumnsType } from 'antd/lib/table'
+
+import SelectItem from '../components/SelectItem'
+
+import { DataType } from '../types'
 
 export const places = [
-    // with array of number it breaks!
-    // TODO: on change -> manage value properly
     { value: [51.505, -0.09], name: 'Point A' },
     { value: [51.555, -0.03], name: 'Point B' },
-    { value: [51.525, -0.05], name: 'Point C' },
+    { value: [51.535, -0.05], name: 'Point C' },
+    { value: [51.535, -0.07], name: 'Point D' },
+    { value: [51.545, -0.04], name: 'Point E' },
 ]
 
 export const dataSource: DataType[] = [
@@ -25,21 +28,24 @@ export const dataSource: DataType[] = [
     {
         key: '3',
         id: 3,
-        from: 'Point C',
-        to: 'Point C',
+        from: 'Point E',
+        to: 'Point D',
     },
 ]
 
-export const columns = [
+export const columns: ColumnsType<DataType> = [
     {
         title: 'Номер заявки',
         dataIndex: 'id',
         key: 'id',
+        width: 100,
+        fixed: true        
     },
     {
         title: 'Погрузка',
         dataIndex: 'from',
         key: 'from',
+        width: 300, 
         render: (defaultValue: string, record: DataType) => (
             <SelectItem 
                 defaultValue={defaultValue} 
@@ -52,6 +58,7 @@ export const columns = [
         title: 'Разгрузка',
         dataIndex: 'to',
         key: 'to',
+        width: 300, 
         render: (defaultValue: string, record: DataType) => (
             <SelectItem 
                 defaultValue={defaultValue} 
