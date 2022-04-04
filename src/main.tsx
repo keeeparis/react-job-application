@@ -1,29 +1,14 @@
-import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-
-import './index.less'
 
 import App from './App'
 import { store } from './redux/store'
 
-        /* React 18 */
-// const container = document.getElementById('root') as HTMLDivElement
-// ReactDOMClient
-//     .createRoot(container)
-//     .render(
-//         <Provider store={store}>
-//             <React.StrictMode>
-//                 <App />
-//             </React.StrictMode>
-//         </Provider>
-//     )
+import './index.less'
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </React.StrictMode>,
+    <Provider store={store}>
+        <App />
+    </Provider>,
     document.getElementById('root')
 )
