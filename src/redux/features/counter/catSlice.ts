@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 interface catState {
     isLoading: boolean,
     cats: string[],
-    status: 'idle' | 'updated'
+    status: 'idle' | 'updated',
 }
 
 const initialState: catState = {
