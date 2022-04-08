@@ -1,16 +1,15 @@
+import React from 'react'
 import { Select } from 'antd'
 
-import { setCurrentRoute, updateRoute } from '../../redux/features/route/routeSlice'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { updateRoute } from '../../redux/features/route/routeSlice'
+import { useAppDispatch } from '../../redux/hooks'
 import { SelectItemProps } from './types'
 import { places } from '../../mock'
-import React from 'react'
 
 const { Option } = Select
 
 const SelectItem = ({ defaultValue, record, id } : SelectItemProps) => {
     const dispatch = useAppDispatch()
-    const currentRouteId = useAppSelector(state => state.routes.currentRoute.id)
     
     const handleChange = (value: string) => {
         dispatch(updateRoute({
@@ -18,8 +17,6 @@ const SelectItem = ({ defaultValue, record, id } : SelectItemProps) => {
             record,
             id
         }))
-
-        currentRouteId === id && dispatch(setCurrentRoute(id.toString()))
     }
 
     return (

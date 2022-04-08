@@ -1,22 +1,38 @@
 import { MapContainer, TileLayer } from 'react-leaflet'
 import { useEffect, useMemo, useRef } from 'react'
+import L from 'leaflet'
 
+import iconShadow from 'leaflet/dist/images/marker-shadow.png'
+import icon from 'leaflet/dist/images/marker-icon.png'
 import RoutingMachine from '../RoutingMachine'
 
 import { useAppSelector } from '../../redux/hooks'
 import { places } from '../../mock'
 import { Wrapper } from './styles'
 
+
+// defining marker images, because in prod
+// images fail to load from leaflet/dist
+const DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow,
+    iconSize: [25,41],
+    iconAnchor: [12,41]
+})
+
+L.Marker.prototype.options.icon = DefaultIcon;
+
 const MapWrapper = ({ mapSize }: { mapSize: string }) => {
     const rMachine = useRef<any>(null)
-    const { from, to } = useAppSelector(state => state.routes.currentRoute)
-
+    const { key } = useAppSelector(state => state.routes.currentRoute)
+    const route = useAppSelector(state => state.routes.routes.filter(route => route.key === key))[0]
+    
     const coords = useMemo(() => {
         return {
-            lat: places.filter(place => place.name === from)[0],
-            lng: places.filter(place => place.name === to)[0],
+            lat: places.filter(place => place.name === route?.from)[0],
+            lng: places.filter(place => place.name === route?.to)[0],
         }
-    }, [from, to])
+    }, [route])
 
     useEffect(() => {
         if (rMachine.current) {
@@ -32,14 +48,17 @@ const MapWrapper = ({ mapSize }: { mapSize: string }) => {
                 center={[51.555, -0.09]} 
                 zoom={11}
                 className='mapContainer'
+                
             >
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <RoutingMachine 
-                    ref={rMachine} 
-                    waypoints={[coords.lat.value, coords.lng.value]}
-                />
+                {coords.lat && coords.lng && 
+                    <RoutingMachine 
+                        ref={rMachine} 
+                        waypoints={[coords.lat.value, coords.lng.value]}
+                    />
+                }
             </MapContainer>
         </Wrapper>
     )

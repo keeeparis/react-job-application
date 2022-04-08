@@ -5,10 +5,7 @@ import { routeState } from "./types"
 const initialState: routeState = {
     routes: [],
     currentRoute: {
-        id: 999,
-        key: '999',
-        from: 'Point A',
-        to: 'Point C',
+        key: null
     },
     isLoading: false,
     status: 'idle'
@@ -19,8 +16,7 @@ export const routeSlice = createSlice({
     initialState,
     reducers: {
         setCurrentRoute: (state, action) => {
-            const route = state.routes.filter(route => route.key === action.payload)[0]
-            state.currentRoute = route
+            state.currentRoute.key = action.payload
         },
         setRoutes: (state, action) => {
             state.routes = action.payload
